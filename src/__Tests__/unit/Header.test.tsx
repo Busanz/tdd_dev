@@ -1,11 +1,14 @@
-import { render, screen } from "@testing-library/react"
-import Header from "@/components/Header"
+import { render, screen } from '@testing-library/react';
+import Header from '@/components/Header';
 
-test("The header is rendering", () => {
-  render(<Header />)
+test('The header is rendering', () => {
+  render(<Header />);
 
-  const headerTitle = screen.getByRole("heading", {level: 1, "name": /Test your memory/i})
+  const headerTitle = screen.getByRole('heading', {
+    level: 1,
+    name: /Test your memory/i,
+  });
 
-  expect(headerTitle).toBeInTheDocument()
-  expect(headerTitle).toHaveTextContent(/Test your memory/i)
-})
+  expect(headerTitle).toBeInTheDocument();
+  expect(headerTitle).toHaveTextContent(/Test your memory/i);
+});
