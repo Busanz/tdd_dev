@@ -1,24 +1,26 @@
+import Card from '../Card';
 import { memoryCards } from '@/data/data';
+import { MemoryCardType } from '@/data/data';
 
 type BoardLayoutProps = {
   setShowResults: () => void;
+
+  cardArray: MemoryCardType[];
+  setSelectedCards: () => void;
+  selectedCards: MemoryCardType[];
+  isLocked: boolean;
+  setIsLocked: (value: boolean) => void;
 };
 
-const BoardLayout = ({ setShowResults }: BoardLayoutProps) => {
-  return (
-    <div>
-      {memoryCards.map((item) => (
-        <div key={item.id} data-testid="card-image">
-          <img
-            src={item.image}
-            alt={`Card image ${item.name}`}
-            width={100}
-            height={200}
-          />
-        </div>
-      ))}
-    </div>
-  );
+const BoardLayout = ({
+  setShowResults,
+  cardArray,
+  setSelectedCards,
+  selectedCards,
+  isLocked,
+  setIsLocked,
+}: BoardLayoutProps) => {
+  return <div>{<Card />}</div>;
 };
 
 export default BoardLayout;
