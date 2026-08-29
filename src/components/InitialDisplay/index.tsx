@@ -7,15 +7,14 @@ type InitialDisplayProps = {
 
 const InitialDisplay = ({ setGameStart }: InitialDisplayProps) => {
   return (
-    <div className="flex flex-col items-center my-10">
+    <div
+      className="flex flex-col items-center justify-between my-10 w-full h-full"
+      data-testid="initial-display"
+    >
       <Header />
-      <h2>Get started</h2>
-      <p data-testid="instructions">
-        To play, click one card at a time, only two cards can be flipped per
-        turn, match all the pairs to win
-      </p>
+      <h2 className="text-2xl pb-10">Get started</h2>
       <button
-        className="bg-black text-white px-10 py-2 cursor-pointer text-2xl"
+        className="bg-indigo-500 text-white px-13 py-2 cursor-pointer text-2xl font-light rounded-2xl mb-10"
         data-testid="start-button"
         onClick={() => {
           setGameStart(true);
@@ -23,6 +22,11 @@ const InitialDisplay = ({ setGameStart }: InitialDisplayProps) => {
       >
         Start
       </button>
+      <p data-testid="instructions">
+        To play, click one card at a time, only two cards can be flipped per
+        turn, match all the pairs to win
+      </p>
+
       <Footer />
     </div>
   );

@@ -1,4 +1,4 @@
-import { memoryCards } from '@/data/data';
+'use client';
 import { MemoryCardType } from '@/data/data';
 
 type CardProps = {
@@ -10,34 +10,50 @@ type CardProps = {
 };
 
 const Card = ({
-  cardArray,
   setSelectedCards,
   selectedCards,
+  cardArray,
   isLocked,
-  setIsLocked,
 }: CardProps) => {
-  const handleClickCard = (card: MemoryCardType) => {
-    isLocked = true;
+  const handleClickOnCard = (clickedCard: MemoryCardType) => {
+    if (isLocked) return;
+    if (clickedCard.status === 'paired' || clickedCard.status === 'flipped')
+      return;
+
+    const currentClickedCard = selectedCards.some(
+      (card) => card.id === clickedCard.id,
+    );
+
+    if (currentClickedCard) return;
+    if (selectedCards.length === 2) return;
+    setSelectedCards([...selectedCards, { ...clickedCard, status: 'flipped' }]);
   };
   return (
-    <div>
-      {memoryCards.map((item) => (
-        <div key={item.id}>
-          <img
-            data-testid="card-image"
-            src={
-              item.status === 'flipped' || item.status === 'paired'
-                ? item.image
-                : 'cardBack.png'
-            }
-            alt={`Card image ${item.name}`}
-            width={100}
-            height={200}
-          />
-        </div>
-      ))}
+    <div className="flex justify-center gap-6 w-full cursor-pointer">
+      {cardArray.map((card) => {
+        const isSelected = selectedCards.some((c) => c.id === card.id);
+        const displayImage =
+          card.status === 'paired' || isSelected ? card.image : 'cardBack.png';
+        const altImage =
+          card.status === 'paired' || card.status === 'flipped'
+            ? `Card image ${card.name}`
+            : 'Card back image';
+        return (
+          <div key={card.id} data-testid="board">
+            <img
+              data-testid="card-image"
+              src={displayImage}
+              width={100}
+              alt={altImage}
+              height={200}
+              onClick={() => {
+                handleClickOnCard(card);
+              }}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
-
 export default Card;
