@@ -54,6 +54,7 @@ const BoardLayout = ({ setShowResults }: BoardLayoutProps) => {
 
         if (firstCard.name === secondCard.name) {
           setCardStatus('paired');
+          setSelectedCards([]);
         } else {
           setCardStatus('unflipped');
         }
@@ -74,12 +75,13 @@ const BoardLayout = ({ setShowResults }: BoardLayoutProps) => {
       return;
     }
     const isAllCardsPaired = cards.every((card) => card.status === 'paired');
-    console.log(isAllCardsPaired);
-    console.log(cards);
     setShowResults(isAllCardsPaired);
   }, [cards, selectedCards]);
   return (
-    <div className="flex w-full h-screen justify-center items-center">
+    <div
+      className="flex w-full h-screen justify-center items-center"
+      data-testid="board"
+    >
       <Card
         cardArray={cards}
         isLocked={isLocked}
